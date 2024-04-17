@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 # アプリケーションの依存ファイルをインストール
 COPY package*.json ./
 RUN npm install
+RUN npm i -g @nestjs/cli
 
 # アプリケーションのソースをコピー
 COPY . .

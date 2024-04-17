@@ -8,8 +8,17 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    volumes:
+      - ./back:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
       - NODE_ENV=production
+      - DATABASE_HOST=db
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=example
+      - DATABASE_NAME=myapp
+    depends_on:
+      - db
 
   frontend:
     container_name: vue-frontend
@@ -21,6 +30,21 @@ services:
     volumes:
       - ./front:/app
       - /app/node_modules
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: myapp
+      MYSQL_USER: user
+      MYSQL_PASSWORD: example
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
 
 networks:
   default:
