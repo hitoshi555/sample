@@ -1,19 +1,18 @@
 version: '3.8'
+
 services:
-  app:
+  backend:
     container_name: nestjs-backend
     build:
       context: ./back
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    depends_on:
-      - db
+    volumes:
+      - ./back:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
-      - DATABASE_HOST=db
-      - DATABASE_USER=root
-      - DATABASE_PASSWORD=secret
-      - DATABASE_NAME=test
+      - NODE_ENV=production
 
   frontend:
     container_name: vue-frontend
@@ -22,21 +21,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
-    depends_on:
-      - app
-
-  db:
-    container_name: mysql-db-sample
-    image: mysql:5.7
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: test
-      MYSQL_USER: user
-      MYSQL_PASSWORD: secret
     volumes:
-      - db-data:/var/lib/mysql
+      - ./front:/app
+      - /app/node_modules
 
-volumes:
-  db-data:
+networks:
+  default:
+    driver: bridge
