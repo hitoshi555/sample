@@ -17,7 +17,7 @@ export class ClassRoomController {
 
     @Get(':id')
     @ApiOkResponse({ type: ResponseOneClassRoom })
-    getOne(@Param('id', ParseIntPipe) id: number) {
+    getOneClassRoom(@Param('id', ParseIntPipe) id: number) {
         return this.classRoomService.getOneClassRoom(id);
     }
 }
