@@ -1,68 +1,98 @@
-import { PrismaClient, Prisma, ClassRoom } from '@prisma/client';
+import { PrismaClient, Prisma, ClassRoom, Teacher } from '@prisma/client';
 const prisma = new PrismaClient();
 
-// モデル投入用のデータ定義
-const classRoomData: ClassRoom[] = [
+const teacherData: Teacher[] = [
     {
         id: 1,
-        name: "数学入門",
-        description: "基本的な数学の概念を紹介する入門コースです。",
-        units: 3,
-        period: "春",
-        timeSlot: "9:00 - 10:30"
+        name: "田中一郎",
+        position: 'PROFESSOR',
     },
     {
         id: 2,
-        name: "物理学中級",
-        description: "力学および電磁気学をカバーする中級物理学コース。",
-        units: 4,
-        period: "秋",
-        timeSlot: "11:00 - 12:30"
+        name: "佐藤恵子",
+        position: 'ASSOCIATEPROFESSOR',
     },
     {
         id: 3,
-        name: "化学入門",
-        description: "化学反応と実験技術の紹介。",
-        units: 3,
-        period: "春",
-        timeSlot: "13:00 - 14:30"
-    },
-    {
-        id: 4,
-        name: "生物学上級",
-        description: "細胞および分子生物学の上級トピックス。",
-        units: 4,
-        period: "春",
-        timeSlot: "15:00 - 16:30"
-    },
-    {
-        id: 5,
-        name: "哲学入門",
-        description: "基本的な哲学的問いについて探求するコース。",
-        units: 2,
-        period: "秋",
-        timeSlot: "17:00 - 18:30"
+        name: "鈴木次郎",
+        position: 'LECTURER',
     }
 ];
 
-const doSeed = async () => {
-    const posts = [];
-    for (const classRoom of classRoomData) {
-        const createPosts = prisma.classRoom.create({
-            data: classRoom,
-        });
-        posts.push(createPosts);
+
+const classRoomData: ClassRoom[] = [
+    {
+        id: 1,
+        name: "数学の基礎",
+        description: "初心者向けの基本的な数学の概念を学びます。",
+        units: 2,
+        period: 'SPRING',
+        timeSlot: 'FIRST',
+    },
+    {
+        id: 2,
+        name: "物理学入門",
+        description: "運動の法則とエネルギーの基礎を探求します。",
+        units: 1,
+        period: 'AUTUMN',
+        timeSlot: 'THIRD',
+    },
+    {
+        id: 3,
+        name: "化学の世界",
+        description: "化学反応と元素の基本を解説します。",
+        units: 1,
+        period: 'SPRING',
+        timeSlot: 'SECOND',
+    },
+    {
+        id: 4,
+        name: "生物学基本",
+        description: "生命科学の基礎知識を提供します。",
+        units: 2,
+        period: 'AUTUMN',
+        timeSlot: 'FOURTH',
+    },
+    {
+        id: 5,
+        name: "哲学のふれあい",
+        description: "古代から現代までの哲学的思考について学びます。",
+        units: 2,
+        period: 'SPRING',
+        timeSlot: 'FIFTH',
     }
-    return await prisma.$transaction(posts);
-};
+];
 
-const main = async () => {
+const randomIntFromInterval = (min: number, max: number): number => { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+
+async function main() {
     console.log(`Start seeding ...`);
+    let teacherIds = [];
 
-    await doSeed();
+    // Teacher のデータを作成
+    for (const data of teacherData) {
+        await prisma.teacher.create({
+            data: data
+        });
+    }
+
+    // ClassRoom のデータを作成
+    for (const data of classRoomData) {
+        await prisma.classRoom.create({
+            data: {
+                ...data,
+                teacher: {
+                    connect: [{ id: randomIntFromInterval(1, 3) }]
+                }
+            }
+        });
+    }
 
     console.log(`Seeding finished.`);
-};
+}
 
 main()
     .catch((e) => {
