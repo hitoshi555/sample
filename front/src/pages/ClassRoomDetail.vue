@@ -9,7 +9,7 @@ const route = useRoute()
 const result = ref<ClassRoomWithTeachers>()
 const api = new TutorialDataService()
 const id = ref(route.params.id);
-const teachers = ref<Teacher>()
+const teachers = ref<Teacher[] | null>()
 
 
 console.log('ClassRoom script start')
