@@ -1,29 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Period, Position, TimeSlot } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-enum TimeSlot {
-    FIRST = 'FIRST',
-    SECOND = 'SECOND',
-    THIRD = 'THIRD',
-    FOURTH = 'FOURTH',
-    FIFTH = 'FIFTH',
-    SIXTH = 'SIXTH',
-    SEVENTH = 'SEVENTH',
-}
-
-enum Period {
-    SPRING = 'SPRING',
-    AUTUMN = 'AUTUMN',
-}
-
-enum Position {
-    PROFESSOR = "PROFESSOR",
-    ASSOCIATEPROFESSOR = "ASSOCIATEPROFESSOR",
-    LECTURER = "LECTURER",
-    ASSISTANTPROFESSOR = "ASSISTANTPROFESSOR",
-}
-
-class ClassRoom {
+export class ClassRoom {
     @ApiProperty()
     @IsNotEmpty()
     @IsNumber()
@@ -55,7 +34,7 @@ class ClassRoom {
     timeSlot: TimeSlot;
 }
 
-class Teacher {
+export class Teacher {
     @ApiProperty()
     @IsNotEmpty()
     @IsNumber()
@@ -72,7 +51,42 @@ class Teacher {
     position: Position;
 }
 
-class ClassRoomWithTeachers {
+export class ClassRoomWithTeachers {
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsNumber()
+    id: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    name: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    description: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsNumber()
+    units: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    // @IsEnum(Period)
+    period: Period;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsEnum(TimeSlot)
+    timeSlot: TimeSlot;
+
+    @ApiProperty()
+    teacher: Teacher[];
+}
+
+export class ClassRoomDTO {
     @ApiProperty()
     @IsNotEmpty()
     @IsNumber()
@@ -102,9 +116,6 @@ class ClassRoomWithTeachers {
     @IsNotEmpty()
     @IsEnum(TimeSlot)
     timeSlot: TimeSlot;
-
-    @ApiProperty()
-    teacher: Teacher[];
 }
 
 export class ResponseAllClassRoom {

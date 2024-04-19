@@ -55,36 +55,17 @@ export interface ClassRoom {
     'units': number;
     /**
      * 
-     * @type {string}
+     * @type {object}
      * @memberof ClassRoom
      */
-    'period': ClassRoomPeriodEnum;
+    'period': object;
     /**
      * 
-     * @type {string}
+     * @type {object}
      * @memberof ClassRoom
      */
-    'timeSlot': ClassRoomTimeSlotEnum;
+    'timeSlot': object;
 }
-
-export const ClassRoomPeriodEnum = {
-    Spring: 'SPRING',
-    Autumn: 'AUTUMN'
-} as const;
-
-export type ClassRoomPeriodEnum = typeof ClassRoomPeriodEnum[keyof typeof ClassRoomPeriodEnum];
-export const ClassRoomTimeSlotEnum = {
-    First: 'FIRST',
-    Second: 'SECOND',
-    Third: 'THIRD',
-    Fourth: 'FOURTH',
-    Fifth: 'FIFTH',
-    Sixth: 'SIXTH',
-    Seventh: 'SEVENTH'
-} as const;
-
-export type ClassRoomTimeSlotEnum = typeof ClassRoomTimeSlotEnum[keyof typeof ClassRoomTimeSlotEnum];
-
 /**
  * 
  * @export
@@ -235,7 +216,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async classRoomControllerGetAllClassRoom(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ResponseAllClassRoom>>> {
+        async classRoomControllerGetAllClassRoom(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseAllClassRoom>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.classRoomControllerGetAllClassRoom(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.classRoomControllerGetAllClassRoom']?.[localVarOperationServerIndex]?.url;
@@ -276,7 +257,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        classRoomControllerGetAllClassRoom(options?: any): AxiosPromise<Array<ResponseAllClassRoom>> {
+        classRoomControllerGetAllClassRoom(options?: any): AxiosPromise<ResponseAllClassRoom> {
             return localVarFp.classRoomControllerGetAllClassRoom(options).then((request) => request(axios, basePath));
         },
         /**
