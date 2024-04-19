@@ -9,12 +9,17 @@
     "preview": "vite preview",
     "lint": "eslint --fix src/*.{ts,vue} && eslint --fix src/**/*.{ts,vue}",
     "format": "prettier -w src/*.{ts,vue} && prettier -w src/**/*.{ts,vue}",
-    "fix": "npm run format && npm run lint"
+    "fix": "npm run format && npm run lint",
+    "codegen": "openapi-generator-cli generate -i http://localhost:3000/api-json -g typescript-axios -o ./codegen/api-client"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
     "vue": "^3.4.21"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.2",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
     "@vitejs/plugin-vue": "^5.0.4",
