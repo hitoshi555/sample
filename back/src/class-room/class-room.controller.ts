@@ -10,16 +10,20 @@ export class ClassRoomController {
 
     @Get()
     @ApiOkResponse({ type: ResponseAllClassRoom })
-    getAllClassRoom() {
+    async getAllClassRoom() {
         console.log("getAllClassRoom")
-        const response = this.classRoomService.getAllClassRoom();
+        const response = await this.classRoomService.getAllClassRoom();
         console.log("response", response)
         return response;
     }
 
     @Get(':id')
     @ApiOkResponse({ type: ResponseOneClassRoom })
-    getOneClassRoom(@Param('id', ParseIntPipe) id: number) {
-        return this.classRoomService.getOneClassRoom(id);
+    async getOneClassRoom(@Param('id', ParseIntPipe) id: number) {
+        console.log("getOneClassRoom")
+        console.log("id", id)
+        const response = await this.classRoomService.getOneClassRoom(id);
+        console.log("response", response)
+        return { classRoom: response };
     }
 }

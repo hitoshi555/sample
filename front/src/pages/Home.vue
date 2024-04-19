@@ -26,32 +26,15 @@ console.log('Home script end')
 </script>
 
 <template>
-  <!-- <h1>Home</h1>
-  <div>
-    <h2>Course List</h2>
-    <ul>
-      <li
-        v-for="course in result"
-        :key="course.id"
-      >
-        {{ course.id }}- {{ course.name }}- {{ course.period }}
-      </li>
-    </ul>
-  </div> -->
   <div class="bg-white py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <PageTitle :title="'授業一覧'" />
 
       <div
-        class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"
-      >
-        <div
-          v-for="course in result"
-          :key="course.id"
-        >
-          <ClassRoomCard :name="course.name" :description="course.description" />
+        class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <div v-for="course in result" :key="course.id">
+          <ClassRoomCard :id="course.id" :name="course.name" :description="course.description" />
         </div>
-
       </div>
     </div>
   </div>

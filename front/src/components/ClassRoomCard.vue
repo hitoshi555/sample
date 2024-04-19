@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 const props = defineProps({
+  id: {
+    type: Number,
+    default: undefined,
+  },
   name: {
     type: String,
     default: '',
@@ -11,6 +15,7 @@ const props = defineProps({
   },
 })
 
+const id = ref(props.id)
 const name = ref(props.name)
 const description = ref(props.description)
 </script>
@@ -21,10 +26,10 @@ const description = ref(props.description)
       <h3
         class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
       >
-        <a href="#">
+        <router-link :to="`class-room/${id}`">
           <span class="absolute inset-0" />
           {{ name }}
-        </a>
+        </router-link>
       </h3>
       <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
         {{ description }}
