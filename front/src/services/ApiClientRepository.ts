@@ -2,6 +2,7 @@ import {
   Configuration,
   DefaultApi,
   ResponseAllClassRoom,
+  ResponseOneClassRoom,
 } from '../../codegen/api-client'
 import { AxiosResponse } from 'axios'
 
@@ -18,7 +19,7 @@ export class TutorialDataService {
       .classRoomControllerGetAllClassRoom()
       .then((response: AxiosResponse<ResponseAllClassRoom>) => {
         const result: ResponseAllClassRoom = response.data
-        console.log(result) // ResponseAllClassRoom[]のデータを取得してログに出力
+        console.log(result)
         return result
       })
     console.log(
@@ -26,7 +27,27 @@ export class TutorialDataService {
       result,
     )
 
-    const allClassRoom = await result // 非同期処理が完了するまで待機
+    const allClassRoom = await result
+    console.log(allClassRoom)
+    return allClassRoom
+  }
+
+  async getClassRoomDetail(id: number): Promise<ResponseOneClassRoom> {
+    const api = new ApiClientRepository()
+    const result = api
+      .classRoomControllerGetOneClassRoom(id)
+      .then((response: AxiosResponse<ResponseOneClassRoom>) => {
+        console.log('response', response)
+        const result: ResponseOneClassRoom = response.data
+        console.log(result)
+        return result
+      })
+    console.log(
+      'TutorialDataService classRoomControllerGetAllClassRoom',
+      result,
+    )
+
+    const allClassRoom = await result
     console.log(allClassRoom)
     return allClassRoom
   }

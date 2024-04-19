@@ -69,6 +69,55 @@ export interface ClassRoom {
 /**
  * 
  * @export
+ * @interface ClassRoomWithTeachers
+ */
+export interface ClassRoomWithTeachers {
+    /**
+     * 
+     * @type {number}
+     * @memberof ClassRoomWithTeachers
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClassRoomWithTeachers
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClassRoomWithTeachers
+     */
+    'description': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ClassRoomWithTeachers
+     */
+    'units': number;
+    /**
+     * 
+     * @type {object}
+     * @memberof ClassRoomWithTeachers
+     */
+    'period': object;
+    /**
+     * 
+     * @type {object}
+     * @memberof ClassRoomWithTeachers
+     */
+    'timeSlot': object;
+    /**
+     * 
+     * @type {Array<Teacher>}
+     * @memberof ClassRoomWithTeachers
+     */
+    'teacher': Array<Teacher> | null;
+}
+/**
+ * 
+ * @export
  * @interface ResponseAllClassRoom
  */
 export interface ResponseAllClassRoom {
@@ -87,10 +136,35 @@ export interface ResponseAllClassRoom {
 export interface ResponseOneClassRoom {
     /**
      * 
-     * @type {ClassRoom}
+     * @type {ClassRoomWithTeachers}
      * @memberof ResponseOneClassRoom
      */
-    'classRoom': ClassRoom;
+    'classRoom': ClassRoomWithTeachers;
+}
+/**
+ * 
+ * @export
+ * @interface Teacher
+ */
+export interface Teacher {
+    /**
+     * 
+     * @type {number}
+     * @memberof Teacher
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Teacher
+     */
+    'name': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof Teacher
+     */
+    'position': object;
 }
 
 /**

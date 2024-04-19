@@ -74,7 +74,7 @@ export class ClassRoomWithTeachers {
 
     @ApiProperty()
     @IsNotEmpty()
-    // @IsEnum(Period)
+    @IsEnum(Period)
     period: Period;
 
     @ApiProperty()
@@ -83,7 +83,7 @@ export class ClassRoomWithTeachers {
     timeSlot: TimeSlot;
 
     @ApiProperty()
-    teacher: Teacher[];
+    teacher: Teacher[] | null;
 }
 
 export class ClassRoomDTO {
@@ -125,5 +125,5 @@ export class ResponseAllClassRoom {
 
 export class ResponseOneClassRoom {
     @ApiProperty()
-    classRoom: ClassRoom
+    classRoom: ClassRoomWithTeachers
 }
