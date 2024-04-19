@@ -14,11 +14,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Period {
+  SPRING
+  AUTUMN
+}
+
+enum TimeSlot {
+  FIRST
+  SECOND
+  THIRD
+  FOURTH
+  FIFTH
+  SIXTH
+  SEVENTH
+}
+
+enum Position {
+  PROFESSOR
+  ASSOCIATEPROFESSOR
+  LECTURER
+  ASSISTANTPROFESSOR
+}
+
 model ClassRoom {
-  id          Int    @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
   description String
   units       Int
-  period      String
-  timeSlot    String
+  period      Period
+  timeSlot    TimeSlot
+  teacher     Teacher[]
+}
+
+model Teacher {
+  id        Int         @id @default(autoincrement())
+  name      String
+  position  Position
+  classRoom ClassRoom[]
 }
