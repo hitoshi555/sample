@@ -2,6 +2,7 @@ import {
   Configuration,
   DefaultApi,
   ResponseAllClassRoom,
+  ResponseLogin,
   ResponseOneClassRoom,
 } from '../../codegen/api-client'
 import { AxiosResponse } from 'axios'
@@ -50,5 +51,20 @@ export class TutorialDataService {
     const allClassRoom = await result
     console.log(allClassRoom)
     return allClassRoom
+  }
+
+  async login(studentId: string, password: string): Promise<ResponseLogin> {
+    const api = new ApiClientRepository()
+    const result = await api
+      .appControllerLogin({ studentId, password })
+      .then((response: AxiosResponse<ResponseLogin>) => {
+        console.log('response', response)
+        const result = response
+        console.log(result)
+        return result
+      })
+    console.log('TutorialDataService login', result)
+
+    return { access_token: result.data.access_token }
   }
 }
