@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Period, Position, TimeSlot } from '@prisma/client';
+import { Period, Position, TimeSlot, WeekDay } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class ClassRoom {
@@ -32,6 +32,11 @@ export class ClassRoom {
     @IsNotEmpty()
     @IsEnum(TimeSlot)
     timeSlot: TimeSlot;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsEnum(WeekDay)
+    weekday: WeekDay;
 }
 
 export class Teacher {
@@ -83,6 +88,11 @@ export class ClassRoomWithTeachers {
     timeSlot: TimeSlot;
 
     @ApiProperty()
+    @IsNotEmpty()
+    @IsEnum(WeekDay)
+    weekday: WeekDay;
+
+    @ApiProperty()
     teacher: Teacher[] | null;
 }
 
@@ -116,6 +126,11 @@ export class ClassRoomDTO {
     @IsNotEmpty()
     @IsEnum(TimeSlot)
     timeSlot: TimeSlot;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsEnum(WeekDay)
+    weekday: WeekDay;
 }
 
 export class ResponseAllClassRoom {
@@ -126,4 +141,38 @@ export class ResponseAllClassRoom {
 export class ResponseOneClassRoom {
     @ApiProperty()
     classRoom: ClassRoomWithTeachers
+}
+
+export class RequestSelectClassroom {
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsNumber()
+    id: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    studentId: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsEnum(Period)
+    period: Period;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsEnum(TimeSlot)
+    timeSlot: TimeSlot;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsEnum(WeekDay)
+    weekday: WeekDay;
+}
+
+export class ResponseSelectClassroom {
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    resultText: string;
 }

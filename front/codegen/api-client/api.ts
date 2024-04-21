@@ -65,6 +65,12 @@ export interface ClassRoom {
      * @memberof ClassRoom
      */
     'timeSlot': object;
+    /**
+     * 
+     * @type {object}
+     * @memberof ClassRoom
+     */
+    'weekday': object;
 }
 /**
  * 
@@ -110,6 +116,12 @@ export interface ClassRoomWithTeachers {
     'timeSlot': object;
     /**
      * 
+     * @type {object}
+     * @memberof ClassRoomWithTeachers
+     */
+    'weekday': object;
+    /**
+     * 
      * @type {Array<Teacher>}
      * @memberof ClassRoomWithTeachers
      */
@@ -133,6 +145,43 @@ export interface RequestChangePassword {
      * @memberof RequestChangePassword
      */
     'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface RequestSelectClassroom
+ */
+export interface RequestSelectClassroom {
+    /**
+     * 
+     * @type {number}
+     * @memberof RequestSelectClassroom
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RequestSelectClassroom
+     */
+    'studentId': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof RequestSelectClassroom
+     */
+    'period': object;
+    /**
+     * 
+     * @type {object}
+     * @memberof RequestSelectClassroom
+     */
+    'timeSlot': object;
+    /**
+     * 
+     * @type {object}
+     * @memberof RequestSelectClassroom
+     */
+    'weekday': object;
 }
 /**
  * 
@@ -191,6 +240,19 @@ export interface ResponseOneClassRoom {
      * @memberof ResponseOneClassRoom
      */
     'classRoom': ClassRoomWithTeachers;
+}
+/**
+ * 
+ * @export
+ * @interface ResponseSelectClassroom
+ */
+export interface ResponseSelectClassroom {
+    /**
+     * 
+     * @type {string}
+     * @memberof ResponseSelectClassroom
+     */
+    'resultText': string;
 }
 /**
  * 
@@ -416,6 +478,41 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @param {RequestSelectClassroom} requestSelectClassroom 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        classRoomControllerSelectClassRoom: async (requestSelectClassroom: RequestSelectClassroom, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'requestSelectClassroom' is not null or undefined
+            assertParamExists('classRoomControllerSelectClassRoom', 'requestSelectClassroom', requestSelectClassroom)
+            const localVarPath = `/class-room/select-class-room`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(requestSelectClassroom, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {RequestChangePassword} requestChangePassword 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -530,6 +627,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {RequestSelectClassroom} requestSelectClassroom 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async classRoomControllerSelectClassRoom(requestSelectClassroom: RequestSelectClassroom, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseSelectClassroom>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.classRoomControllerSelectClassRoom(requestSelectClassroom, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.classRoomControllerSelectClassRoom']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {RequestChangePassword} requestChangePassword 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -600,6 +709,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         classRoomControllerGetOneClassRoom(id: number, options?: any): AxiosPromise<ResponseOneClassRoom> {
             return localVarFp.classRoomControllerGetOneClassRoom(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {RequestSelectClassroom} requestSelectClassroom 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        classRoomControllerSelectClassRoom(requestSelectClassroom: RequestSelectClassroom, options?: any): AxiosPromise<ResponseSelectClassroom> {
+            return localVarFp.classRoomControllerSelectClassRoom(requestSelectClassroom, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -681,6 +799,17 @@ export class DefaultApi extends BaseAPI {
      */
     public classRoomControllerGetOneClassRoom(id: number, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).classRoomControllerGetOneClassRoom(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {RequestSelectClassroom} requestSelectClassroom 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public classRoomControllerSelectClassRoom(requestSelectClassroom: RequestSelectClassroom, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).classRoomControllerSelectClassRoom(requestSelectClassroom, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

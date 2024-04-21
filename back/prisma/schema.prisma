@@ -44,6 +44,16 @@ enum Department {
   CHEMICAL_ENGINEERING
 }
 
+enum WeekDay {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
 model ClassRoom {
   id          Int       @id @default(autoincrement())
   name        String
@@ -51,6 +61,7 @@ model ClassRoom {
   units       Int
   period      Period
   timeSlot    TimeSlot
+  weekday     WeekDay   @default(MONDAY)
   teacher     Teacher[]
   Student     Student[]
 }

@@ -39,10 +39,7 @@ async function changePassword(passwordForm: PasswordForm) {
       throw new Error('パスワードと確認用パスワードが一致しません')
     }
     //userIdとパスワードを送る
-    const response = await api.changePassword(
-      studentId,
-      passwordForm.password,
-    )
+    const response = await api.changePassword(studentId, passwordForm.password)
 
     console.log('response:', response.studentId)
     notify({
@@ -52,7 +49,6 @@ async function changePassword(passwordForm: PasswordForm) {
   } catch (error) {
     console.error('Failed change password:', error)
     notify({
-      name: 'alert',
       type: 'error',
       title: 'Failed change password',
       text: `${error}`,
@@ -73,7 +69,6 @@ const buttonClick = () => {
   } catch (error) {
     console.error('Login out:', error)
     notify({
-      name: 'alert',
       title: 'Logout failed',
       text: 'Logout failed',
     })
