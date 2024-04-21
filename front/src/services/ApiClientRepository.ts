@@ -1,4 +1,5 @@
 import {
+  ClassRoomDTO,
   Configuration,
   DefaultApi,
   ResponseAllClassRoom,
@@ -137,5 +138,24 @@ export class TutorialDataService {
     console.log('selectClassRoom end')
 
     return { resultText: result }
+  }
+
+  async selectedClassRooms(
+    studentId: string,
+  ): Promise<ClassRoomDTO[]> {
+    console.log('selectedClassRooms start')
+    const api = new ApiClientRepository()
+    console.log('studentId:', studentId)
+    const result = await api
+      .usersControllerGetSelectedClassRoom(studentId)
+      .then((response) => {
+        console.log('response', response)
+        const result = response.data.classrooms
+        console.log('result', result)
+        return result
+      })
+    console.log('selectedClassRooms end')
+
+    return result
   }
 }

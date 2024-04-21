@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Department, Password, Period, Position, TimeSlot } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { ClassRoomDTO } from 'src/class-room/class-room.dto';
 
 
 export class StudentDTO {
@@ -43,4 +44,13 @@ export class RequestChangePassword {
 export class ResponseChangePassword {
     @ApiProperty()
     studentId: string
+}
+
+export class RequestSelectedRooms {
+    @ApiProperty()
+    studentId: string
+}
+
+export class ResponseSelectedRooms {
+    classrooms: ClassRoomDTO[]
 }
