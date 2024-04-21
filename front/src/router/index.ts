@@ -4,6 +4,7 @@ import A from '../pages/A.vue'
 import ClassRoomDetail from '../pages/ClassRoomDetail.vue'
 import Login from '../pages/Login.vue'
 import UserSetting from '../pages/UserSetting.vue'
+import SelectedClassRooms from '../pages/SelectedClassRooms.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home },
@@ -11,6 +12,7 @@ const routes = [
   { path: '/class-room/:id', component: ClassRoomDetail },
   { path: '/login', component: Login },
   { path: '/user-setting', component: UserSetting },
+  { path: '/selected-class-rooms', component: SelectedClassRooms }
 ]
 
 const router = createRouter({

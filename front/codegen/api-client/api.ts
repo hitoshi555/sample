@@ -75,6 +75,55 @@ export interface ClassRoom {
 /**
  * 
  * @export
+ * @interface ClassRoomDTO
+ */
+export interface ClassRoomDTO {
+    /**
+     * 
+     * @type {number}
+     * @memberof ClassRoomDTO
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClassRoomDTO
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClassRoomDTO
+     */
+    'description': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ClassRoomDTO
+     */
+    'units': number;
+    /**
+     * 
+     * @type {object}
+     * @memberof ClassRoomDTO
+     */
+    'period': object;
+    /**
+     * 
+     * @type {object}
+     * @memberof ClassRoomDTO
+     */
+    'timeSlot': object;
+    /**
+     * 
+     * @type {object}
+     * @memberof ClassRoomDTO
+     */
+    'weekday': object;
+}
+/**
+ * 
+ * @export
  * @interface ClassRoomWithTeachers
  */
 export interface ClassRoomWithTeachers {
@@ -253,6 +302,19 @@ export interface ResponseSelectClassroom {
      * @memberof ResponseSelectClassroom
      */
     'resultText': string;
+}
+/**
+ * 
+ * @export
+ * @interface ResponseSelectedRooms
+ */
+export interface ResponseSelectedRooms {
+    /**
+     * 
+     * @type {Array<ClassRoomDTO>}
+     * @memberof ResponseSelectedRooms
+     */
+    'classrooms': Array<ClassRoomDTO>;
 }
 /**
  * 
@@ -513,6 +575,39 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @param {string} studentId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersControllerGetSelectedClassRoom: async (studentId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'studentId' is not null or undefined
+            assertParamExists('usersControllerGetSelectedClassRoom', 'studentId', studentId)
+            const localVarPath = `/users/selected-class-rooms/{studentId}`
+                .replace(`{${"studentId"}}`, encodeURIComponent(String(studentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {RequestChangePassword} requestChangePassword 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -639,6 +734,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} studentId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersControllerGetSelectedClassRoom(studentId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseSelectedRooms>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersControllerGetSelectedClassRoom(studentId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.usersControllerGetSelectedClassRoom']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {RequestChangePassword} requestChangePassword 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -718,6 +825,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         classRoomControllerSelectClassRoom(requestSelectClassroom: RequestSelectClassroom, options?: any): AxiosPromise<ResponseSelectClassroom> {
             return localVarFp.classRoomControllerSelectClassRoom(requestSelectClassroom, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} studentId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersControllerGetSelectedClassRoom(studentId: string, options?: any): AxiosPromise<ResponseSelectedRooms> {
+            return localVarFp.usersControllerGetSelectedClassRoom(studentId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -810,6 +926,17 @@ export class DefaultApi extends BaseAPI {
      */
     public classRoomControllerSelectClassRoom(requestSelectClassroom: RequestSelectClassroom, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).classRoomControllerSelectClassRoom(requestSelectClassroom, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} studentId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public usersControllerGetSelectedClassRoom(studentId: string, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).usersControllerGetSelectedClassRoom(studentId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

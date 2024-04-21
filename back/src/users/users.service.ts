@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service'; // PrismaServiceをインポート
 import { Student } from '@prisma/client'; // Prismaで定義したUserモデル
-import { ResponseChangePassword, StudentDTO } from './users.dto';
+import { ResponseChangePassword, ResponseSelectedRooms, StudentDTO } from './users.dto';
 import bcrypt = require('bcryptjs');
 
 @Injectable()
@@ -22,14 +22,7 @@ export class UsersService {
         });
         return result
     }
-    // const updateUser = await prisma.user.update({
-    //     where: {
-    //       email: 'viola@prisma.io',
-    //     },
-    //     data: {
-    //       name: 'Viola the Magnificent',
-    //     },
-    //   })
+
     async changePassword(studentId: string, password: string): Promise<ResponseChangePassword> {
         // Prismaを使用してDBにアクセスして、ユーザーを取得する
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -44,4 +37,15 @@ export class UsersService {
         return { studentId: updatePassword.studentId }
     }
 
+    async selectedClassRoom(studentId: string): Promise<ResponseSelectedRooms> {
+
+        const studentWithClassRooms = await this.prisma.student.findUnique({
+            where: { studentId: studentId },
+            include: { classRoom: true },
+        });
+
+        const classRooms = studentWithClassRooms.classRoom;
+
+        return { classrooms: classRooms };
+    }
 }
