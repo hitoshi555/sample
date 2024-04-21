@@ -2,7 +2,7 @@ import { Controller, UseGuards, Post, Body, Get, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBasicAuth, ApiBody, ApiOkResponse } from '@nestjs/swagger';
-import { RequestChangePassword, RequestSelectedRooms, ResponseChangePassword, ResponseSelectedRooms } from './users.dto';
+import { RequestChangePassword, RequestEditSelectClassroom, RequestSelectedRooms, ResponseChangePassword, ResponseEditSelectClassroom, ResponseSelectedRooms } from './users.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @ApiBasicAuth()
@@ -31,6 +31,22 @@ export class UsersController {
         const result = await this.usersService.selectedClassRoom(
             studentId,
         );
+        return result;
+    }
+
+    @Post('edit-selected-class-rooms/')
+    @ApiBody({ type: RequestEditSelectClassroom })
+    @ApiOkResponse({ type: ResponseEditSelectClassroom })
+    async postEditSelectedClassRoom(@Body() body: RequestEditSelectClassroom) {
+        console.log("selected-class-rooms")
+        const classRoomId = body.id
+        const studentId = body.studentId
+        const result = await this.usersService.editSelectedClassRoom(
+            classRoomId,
+            studentId
+        );
+
+        console.log("selected-class-rooms end")
         return result;
     }
 }

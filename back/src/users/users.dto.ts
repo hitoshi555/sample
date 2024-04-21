@@ -54,3 +54,16 @@ export class RequestSelectedRooms {
 export class ResponseSelectedRooms {
     classrooms: ClassRoomDTO[]
 }
+
+export class RequestEditSelectClassroom {
+    @ApiProperty()
+    id: number
+
+    @ApiProperty()
+    studentId: string
+}
+
+export class ResponseEditSelectClassroom {
+    @ApiProperty()
+    resultText: string;
+}

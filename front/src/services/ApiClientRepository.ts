@@ -4,9 +4,11 @@ import {
   DefaultApi,
   ResponseAllClassRoom,
   ResponseChangePassword,
+  ResponseEditSelectClassroom,
   ResponseLogin,
   ResponseOneClassRoom,
   ResponseSelectClassroom,
+  ResponseSelectedRooms,
 } from '../../codegen/api-client'
 import { AxiosResponse } from 'axios'
 import { useUserStore } from '../store/user'
@@ -142,7 +144,7 @@ export class TutorialDataService {
 
   async selectedClassRooms(
     studentId: string,
-  ): Promise<ClassRoomDTO[]> {
+  ): Promise<ResponseSelectedRooms> {
     console.log('selectedClassRooms start')
     const api = new ApiClientRepository()
     console.log('studentId:', studentId)
@@ -150,11 +152,30 @@ export class TutorialDataService {
       .usersControllerGetSelectedClassRoom(studentId)
       .then((response) => {
         console.log('response', response)
-        const result = response.data.classrooms
+        const result = response.data
         console.log('result', result)
         return result
       })
     console.log('selectedClassRooms end')
+
+    return result
+  }
+
+  async editSelectedClassRoom(
+    id: number,
+    studentId: string,
+  ): Promise<ResponseEditSelectClassroom> {
+    console.log('editSelectedClassRoom start')
+    const api = new ApiClientRepository()
+    const result = await api
+      .usersControllerPostEditSelectedClassRoom({ id, studentId })
+      .then((response) => {
+        console.log('response', response)
+        const result = response.data
+        console.log(result)
+        return result
+      })
+    console.log('editSelectedClassRoom end')
 
     return result
   }
