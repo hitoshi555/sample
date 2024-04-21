@@ -14,27 +14,20 @@ const api = new TutorialDataService()
 const id = ref(route.params.id)
 const teachers = ref<Teacher[] | null>()
 
-console.log('ClassRoom script start')
-
 onMounted(async () => {
   try {
-    console.log('id', id.value)
     const classRoomId = Number(id.value)
-    console.log('classRoomId typeof', classRoomId)
-    console.log('classRoomId', classRoomId)
+
     const response = await api.getClassRoomDetail(classRoomId)
-    console.log('response', response.classRoom)
+
     result.value = response.classRoom
     teachers.value = response.classRoom.teacher
-    console.log('result', result.value)
-    console.log('teachers', teachers)
   } catch (error) {
     console.error('Error fetching data:', error)
   }
 })
 
 const buttonClick = async () => {
-  console.log('sample selected')
   try {
     const isLoggedIn = userStore.isLoggedIn
     if (!isLoggedIn) {
@@ -61,7 +54,6 @@ const buttonClick = async () => {
       title: 'select classroom',
       text: 'You have been selected!',
     })
-    console.log('sample selected end')
     router.push('/')
   } catch (error) {
     console.error('Login out:', error)
@@ -112,38 +104,34 @@ const buttonClick = async () => {
     </div>
 
     <div class="bg-white py-12 sm:py-14">
-      
-        <div class="mb-6">
-          <h2
-            class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-          >
-            Meet our leadership
-          </h2>
-        </div>
+      <div class="mb-6">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Meet our leadership
+        </h2>
+      </div>
 
-        <ul
-          role="list"
-          class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
+      <ul
+        role="list"
+        class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
+      >
+        <li
+          v-for="teacher in teachers"
+          :key="teacher.id"
         >
-          <li
-            v-for="teacher in teachers"
-            :key="teacher.id"
-          >
-            <div class="flex items-center gap-x-6">
-              <div>
-                <h3
-                  class="text-base font-semibold leading-7 tracking-tight text-gray-900"
-                >
-                  {{ teacher.name }}
-                </h3>
-                <p class="text-sm font-semibold leading-6 text-indigo-600">
-                  {{ teacher.position }}
-                </p>
-              </div>
+          <div class="flex items-center gap-x-6">
+            <div>
+              <h3
+                class="text-base font-semibold leading-7 tracking-tight text-gray-900"
+              >
+                {{ teacher.name }}
+              </h3>
+              <p class="text-sm font-semibold leading-6 text-indigo-600">
+                {{ teacher.position }}
+              </p>
             </div>
-          </li>
-        </ul>
-  
+          </div>
+        </li>
+      </ul>
     </div>
 
     <div class="flex items-center justify-center">

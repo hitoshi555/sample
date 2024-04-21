@@ -28,6 +28,7 @@ const classRoomData: ClassRoom[] = [
         units: 2,
         period: 'SPRING',
         timeSlot: 'FIRST',
+        weekday: 'MONDAY'
     },
     {
         id: 2,
@@ -36,6 +37,7 @@ const classRoomData: ClassRoom[] = [
         units: 1,
         period: 'AUTUMN',
         timeSlot: 'THIRD',
+        weekday: 'MONDAY'
     },
     {
         id: 3,
@@ -44,6 +46,7 @@ const classRoomData: ClassRoom[] = [
         units: 1,
         period: 'SPRING',
         timeSlot: 'SECOND',
+        weekday: 'MONDAY'
     },
     {
         id: 4,
@@ -52,6 +55,7 @@ const classRoomData: ClassRoom[] = [
         units: 2,
         period: 'AUTUMN',
         timeSlot: 'FOURTH',
+        weekday: 'MONDAY'
     },
     {
         id: 5,
@@ -60,6 +64,7 @@ const classRoomData: ClassRoom[] = [
         units: 2,
         period: 'SPRING',
         timeSlot: 'FIFTH',
+        weekday: 'MONDAY'
     }
 ];
 

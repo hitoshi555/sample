@@ -22,26 +22,20 @@ const passwordForm = ref<PasswordForm>({
 })
 
 function handleSubmit() {
-  console.log('Login Data:', passwordForm.value)
   changePassword(passwordForm.value)
 }
 
 async function changePassword(passwordForm: PasswordForm) {
   try {
     // Dummy API call simulation
-    console.log('changePassword', passwordForm)
     //パスワードと確認用パスワードが一致しているか判定
     const studentId = userStore.studentId
-    console.log('studentId', studentId)
-    console.log('password', passwordForm.password)
-    console.log('confirmationPassword', passwordForm.confirmationPassword)
     if (passwordForm.password !== passwordForm.confirmationPassword) {
       throw new Error('パスワードと確認用パスワードが一致しません')
     }
     //userIdとパスワードを送る
-    const response = await api.changePassword(studentId, passwordForm.password)
+    await api.changePassword(studentId, passwordForm.password)
 
-    console.log('response:', response.studentId)
     notify({
       title: 'change password',
       text: 'You have been changed password!',
@@ -57,14 +51,12 @@ async function changePassword(passwordForm: PasswordForm) {
 }
 
 const buttonClick = () => {
-  console.log('logoutUser')
   try {
     userStore.logoutUser()
     notify({
       title: 'Authorization',
       text: 'You have been logged out!',
     })
-    console.log('logoutUser')
     router.push('/')
   } catch (error) {
     console.error('Login out:', error)

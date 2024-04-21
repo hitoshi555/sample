@@ -5,7 +5,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({})
 export class ClassRoomModule {
-    controllers: [ClassRoomController]
-    providers: [ClassRoomService]
-    imports: [PrismaModule]
+  controllers: [ClassRoomController];
+  providers: [ClassRoomService];
+  imports: [PrismaModule];
 }

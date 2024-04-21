@@ -1,5 +1,4 @@
 import {
-  ClassRoomDTO,
   Configuration,
   DefaultApi,
   ResponseAllClassRoom,
@@ -16,15 +15,12 @@ import { useUserStore } from '../store/user'
 function getToken(): string {
   const userStore = useUserStore()
   const token = userStore.token
-  console.log('api userStore.token', userStore.token)
-  // 実際のトークン取得ロジックを実装します。例:
   return token || ''
 }
 
 class ApiClientRepository extends DefaultApi {
   constructor() {
     const token = getToken() // トークンを取得
-    console.log('ApiClientRepository token', token)
     const config = new Configuration({
       basePath: 'http://localhost:3000',
       baseOptions: {
@@ -44,16 +40,10 @@ export class TutorialDataService {
       .classRoomControllerGetAllClassRoom()
       .then((response: AxiosResponse<ResponseAllClassRoom>) => {
         const result: ResponseAllClassRoom = response.data
-        console.log(result)
         return result
       })
-    console.log(
-      'TutorialDataService classRoomControllerGetAllClassRoom',
-      result,
-    )
 
     const allClassRoom = await result
-    console.log(allClassRoom)
     return allClassRoom
   }
 
@@ -62,18 +52,11 @@ export class TutorialDataService {
     const result = api
       .classRoomControllerGetOneClassRoom(id)
       .then((response: AxiosResponse<ResponseOneClassRoom>) => {
-        console.log('response', response)
         const result: ResponseOneClassRoom = response.data
-        console.log(result)
         return result
       })
-    console.log(
-      'TutorialDataService classRoomControllerGetAllClassRoom',
-      result,
-    )
 
     const allClassRoom = await result
-    console.log(allClassRoom)
     return allClassRoom
   }
 
@@ -82,12 +65,9 @@ export class TutorialDataService {
     const result = await api
       .appControllerLogin({ studentId, password })
       .then((response: AxiosResponse<ResponseLogin>) => {
-        console.log('response', response)
         const result = response
-        console.log(result)
         return result
       })
-    console.log('TutorialDataService login', result)
 
     return {
       access_token: result.data.access_token,
@@ -99,17 +79,13 @@ export class TutorialDataService {
     studentId: string,
     password: string,
   ): Promise<ResponseChangePassword> {
-    console.log('changePassword start')
     const api = new ApiClientRepository()
     const result = await api
       .usersControllerPostChangePassword({ studentId, password })
       .then((response: AxiosResponse<ResponseChangePassword>) => {
-        console.log('response', response)
         const result = response.data.studentId
-        console.log(result)
         return result
       })
-    console.log('changePassword end')
 
     return { studentId: result }
   }
@@ -121,7 +97,6 @@ export class TutorialDataService {
     timeSlot: object,
     weekday: object,
   ): Promise<ResponseSelectClassroom> {
-    console.log('selectClassRoom start')
     const api = new ApiClientRepository()
     const result = await api
       .classRoomControllerSelectClassRoom({
@@ -132,31 +107,21 @@ export class TutorialDataService {
         weekday,
       })
       .then((response: AxiosResponse<ResponseSelectClassroom>) => {
-        console.log('response', response)
         const result = response.data.resultText
-        console.log(result)
         return result
       })
-    console.log('selectClassRoom end')
 
     return { resultText: result }
   }
 
-  async selectedClassRooms(
-    studentId: string,
-  ): Promise<ResponseSelectedRooms> {
-    console.log('selectedClassRooms start')
+  async selectedClassRooms(studentId: string): Promise<ResponseSelectedRooms> {
     const api = new ApiClientRepository()
-    console.log('studentId:', studentId)
     const result = await api
       .usersControllerGetSelectedClassRoom(studentId)
       .then((response) => {
-        console.log('response', response)
         const result = response.data
-        console.log('result', result)
         return result
       })
-    console.log('selectedClassRooms end')
 
     return result
   }
@@ -165,17 +130,13 @@ export class TutorialDataService {
     id: number,
     studentId: string,
   ): Promise<ResponseEditSelectClassroom> {
-    console.log('editSelectedClassRoom start')
     const api = new ApiClientRepository()
     const result = await api
       .usersControllerPostEditSelectedClassRoom({ id, studentId })
       .then((response) => {
-        console.log('response', response)
         const result = response.data
-        console.log(result)
         return result
       })
-    console.log('editSelectedClassRoom end')
 
     return result
   }

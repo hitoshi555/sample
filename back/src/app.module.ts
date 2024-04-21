@@ -12,12 +12,17 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersController } from './users/users.controller';
 
 @Module({
-  imports: [ClassRoomModule, PrismaModule, AuthModule, UsersModule,
-    ConfigModule.forRoot({ // envファイルを組み込むために使用
+  imports: [
+    ClassRoomModule,
+    PrismaModule,
+    AuthModule,
+    UsersModule,
+    ConfigModule.forRoot({
+      // envファイルを組み込むために使用
       isGlobal: true,
     }),
   ],
   controllers: [AppController, ClassRoomController, UsersController],
   providers: [AppService, ClassRoomService, PrismaService],
 })
-export class AppModule { }
+export class AppModule {}

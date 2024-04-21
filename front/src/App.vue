@@ -1,9 +1,12 @@
 <script setup lang="ts">
-// import HelloWorld from './components/HelloWorld.vue'
+import Menu from './components/Menu.vue'
 </script>
 
 <template>
-  <router-view />
+  <Menu />
+  <div class="p-4 sm:ml-64">
+    <router-view />
+  </div>
   <notifications />
 </template>
 
