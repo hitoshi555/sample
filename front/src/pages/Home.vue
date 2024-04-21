@@ -46,7 +46,4 @@ console.log('Home script end')
       </div>
     </div>
   </div>
-  <router-link to="/a">
-    a
-  </router-link>
 </template>

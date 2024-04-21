@@ -34,35 +34,29 @@ onMounted(async () => {
 })
 
 const buttonClick = async () => {
-  console.log('sample selected')
+  console.log('editSelectedClassRoom selected')
   try {
     const isLoggedIn = userStore.isLoggedIn
     if (!isLoggedIn) {
       throw new Error('ログインしてください')
     }
 
-    const id = result.value ? result.value.id : 0
-    const studentId = userStore.studentId
-    const period = result.value ? result.value.period : {}
-    const timeSlot = result.value ? result.value.timeSlot : {}
-    const weekday = result.value ? result.value.weekday : {}
+    const classRoomId = Number(id.value)
+    const studentId =  userStore.studentId
 
-    const response = await api.selectClassRoom(
-      id,
-      studentId,
-      period,
-      timeSlot,
-      weekday,
-    )
-    if (response.resultText !== 'added') {
-      throw new Error('時間が重複している授業があります')
+    console.log('studentId:',studentId)
+    const response = await api.editSelectedClassRoom(classRoomId,studentId)
+    console.log('response', response)
+    console.log('editSelectedClassRoom', result.value)
+    if (response.resultText !== 'done') {
+      throw new Error(`${response.resultText}`)
     }
     notify({
-      title: 'select classroom',
+      title: 'edit select classroom',
       text: 'You have been selected!',
     })
     console.log('sample selected end')
-    router.push('/')
+    router.push('/selected-class-rooms')
   } catch (error) {
     console.error('Login out:', error)
     notify({
@@ -79,7 +73,7 @@ const buttonClick = async () => {
     class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
   >
     <div class="absolute inset-0 -z-10 overflow-hidden">
-      <h1>class room</h1>
+      <h1>class roomaaa</h1>
     </div>
 
     <div
@@ -112,7 +106,7 @@ const buttonClick = async () => {
     </div>
 
     <div class="bg-white py-12 sm:py-14">
-      
+
         <div class="mb-6">
           <h2
             class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
@@ -143,7 +137,7 @@ const buttonClick = async () => {
             </div>
           </li>
         </ul>
-  
+   
     </div>
 
     <div class="flex items-center justify-center">
@@ -151,7 +145,7 @@ const buttonClick = async () => {
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         @click="buttonClick"
       >
-        受講する
+        受講を辞める
       </button>
     </div>
   </div>

@@ -198,6 +198,25 @@ export interface RequestChangePassword {
 /**
  * 
  * @export
+ * @interface RequestEditSelectClassroom
+ */
+export interface RequestEditSelectClassroom {
+    /**
+     * 
+     * @type {number}
+     * @memberof RequestEditSelectClassroom
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RequestEditSelectClassroom
+     */
+    'studentId': string;
+}
+/**
+ * 
+ * @export
  * @interface RequestSelectClassroom
  */
 export interface RequestSelectClassroom {
@@ -257,6 +276,19 @@ export interface ResponseChangePassword {
      * @memberof ResponseChangePassword
      */
     'studentId': string;
+}
+/**
+ * 
+ * @export
+ * @interface ResponseEditSelectClassroom
+ */
+export interface ResponseEditSelectClassroom {
+    /**
+     * 
+     * @type {string}
+     * @memberof ResponseEditSelectClassroom
+     */
+    'resultText': string;
 }
 /**
  * 
@@ -641,6 +673,41 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {RequestEditSelectClassroom} requestEditSelectClassroom 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersControllerPostEditSelectedClassRoom: async (requestEditSelectClassroom: RequestEditSelectClassroom, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'requestEditSelectClassroom' is not null or undefined
+            assertParamExists('usersControllerPostEditSelectedClassRoom', 'requestEditSelectClassroom', requestEditSelectClassroom)
+            const localVarPath = `/users/edit-selected-class-rooms`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(requestEditSelectClassroom, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -756,6 +823,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.usersControllerPostChangePassword']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {RequestEditSelectClassroom} requestEditSelectClassroom 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersControllerPostEditSelectedClassRoom(requestEditSelectClassroom: RequestEditSelectClassroom, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseEditSelectClassroom>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersControllerPostEditSelectedClassRoom(requestEditSelectClassroom, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.usersControllerPostEditSelectedClassRoom']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -843,6 +922,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         usersControllerPostChangePassword(requestChangePassword: RequestChangePassword, options?: any): AxiosPromise<ResponseChangePassword> {
             return localVarFp.usersControllerPostChangePassword(requestChangePassword, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {RequestEditSelectClassroom} requestEditSelectClassroom 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersControllerPostEditSelectedClassRoom(requestEditSelectClassroom: RequestEditSelectClassroom, options?: any): AxiosPromise<ResponseEditSelectClassroom> {
+            return localVarFp.usersControllerPostEditSelectedClassRoom(requestEditSelectClassroom, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -948,6 +1036,17 @@ export class DefaultApi extends BaseAPI {
      */
     public usersControllerPostChangePassword(requestChangePassword: RequestChangePassword, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).usersControllerPostChangePassword(requestChangePassword, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {RequestEditSelectClassroom} requestEditSelectClassroom 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public usersControllerPostEditSelectedClassRoom(requestEditSelectClassroom: RequestEditSelectClassroom, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).usersControllerPostEditSelectedClassRoom(requestEditSelectClassroom, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
