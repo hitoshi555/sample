@@ -36,6 +36,14 @@ enum Position {
   ASSISTANTPROFESSOR
 }
 
+enum Department {
+  COMPUTER_SCIENCE
+  ELECTRICAL_ENGINEERING
+  MECHANICAL_ENGINEERING
+  CIVIL_ENGINEERING
+  CHEMICAL_ENGINEERING
+}
+
 model ClassRoom {
   id          Int       @id @default(autoincrement())
   name        String
@@ -44,6 +52,7 @@ model ClassRoom {
   period      Period
   timeSlot    TimeSlot
   teacher     Teacher[]
+  Student     Student[]
 }
 
 model Teacher {
@@ -51,4 +60,20 @@ model Teacher {
   name      String
   position  Position
   classRoom ClassRoom[]
+}
+
+model Student {
+  id         Int         @id @default(autoincrement())
+  studentId  String      @unique
+  name       String
+  department Department
+  password   Password?
+  classRoom  ClassRoom[]
+}
+
+model Password {
+  id             Int     @id @default(autoincrement())
+  hashedPassword String
+  studentId      String  @unique
+  user           Student @relation(fields: [studentId], references: [studentId])
 }

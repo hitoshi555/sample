@@ -13,7 +13,10 @@
     "codegen": "openapi-generator-cli generate -i http://localhost:3000/api-json -g typescript-axios -o ./codegen/api-client"
   },
   "dependencies": {
+    "@kyvg/vue3-notification": "^3.2.1",
+    "@vueuse/core": "^10.9.0",
     "autoprefixer": "^10.4.19",
+    "pinia": "^2.1.7",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "vue": "^3.4.21",
