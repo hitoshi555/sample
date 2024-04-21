@@ -6,4 +6,8 @@ export class ResponseLogin {
     @ApiProperty()
     @IsString()
     access_token: string;
+
+    @ApiProperty()
+    @IsString()
+    studentId: string;
 }

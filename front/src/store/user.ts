@@ -5,10 +5,17 @@ import { ResponseLogin } from '../../codegen/api-client'
 
 export const useUserStore = defineStore('userStore', () => {
   const token = useStorage('token', 'string')
-  const isLoggedIn = computed(
-    () =>
-      token.value !== undefined && token.value !== '' && token.value != null,
-  )
+  const studentId = useStorage('studentId', 'string')
+  const isLoggedIn = computed(() => {
+    return (
+      token.value !== undefined &&
+      token.value !== '' &&
+      token.value != null &&
+      studentId.value !== undefined &&
+      studentId.value !== '' &&
+      studentId.value != null
+    )
+  })
   const isLoading = ref(false)
   const isDark = usePreferredDark()
   const sidebarCollapsed = useStorage('sidebarCollapsed', false)
@@ -19,6 +26,7 @@ export const useUserStore = defineStore('userStore', () => {
 
   const setLoggedIn = async (data: ResponseLogin) => {
     token.value = data.access_token
+    studentId.value = data.studentId
   }
 
   const setIsLoading = async (value: boolean) => {
@@ -26,6 +34,7 @@ export const useUserStore = defineStore('userStore', () => {
   }
   const logoutUser = async () => {
     token.value = undefined
+    studentId.value = undefined
   }
 
   return {
@@ -38,5 +47,6 @@ export const useUserStore = defineStore('userStore', () => {
     setLoggedIn,
     isLoggedIn,
     token,
+    studentId,
   } as const
 })

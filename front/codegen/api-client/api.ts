@@ -118,6 +118,25 @@ export interface ClassRoomWithTeachers {
 /**
  * 
  * @export
+ * @interface RequestChangePassword
+ */
+export interface RequestChangePassword {
+    /**
+     * 
+     * @type {string}
+     * @memberof RequestChangePassword
+     */
+    'studentId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RequestChangePassword
+     */
+    'password': string;
+}
+/**
+ * 
+ * @export
  * @interface ResponseAllClassRoom
  */
 export interface ResponseAllClassRoom {
@@ -131,6 +150,19 @@ export interface ResponseAllClassRoom {
 /**
  * 
  * @export
+ * @interface ResponseChangePassword
+ */
+export interface ResponseChangePassword {
+    /**
+     * 
+     * @type {string}
+     * @memberof ResponseChangePassword
+     */
+    'studentId': string;
+}
+/**
+ * 
+ * @export
  * @interface ResponseLogin
  */
 export interface ResponseLogin {
@@ -140,6 +172,12 @@ export interface ResponseLogin {
      * @memberof ResponseLogin
      */
     'access_token': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResponseLogin
+     */
+    'studentId': string;
 }
 /**
  * 
@@ -246,10 +284,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        appControllerGetProfile: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        appControllerGetProfile: async (body: object, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('appControllerGetProfile', 'body', body)
             const localVarPath = `/profile`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -264,9 +305,12 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -370,6 +414,41 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {RequestChangePassword} requestChangePassword 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersControllerPostChangePassword: async (requestChangePassword: RequestChangePassword, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'requestChangePassword' is not null or undefined
+            assertParamExists('usersControllerPostChangePassword', 'requestChangePassword', requestChangePassword)
+            const localVarPath = `/users/change-password`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(requestChangePassword, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -404,11 +483,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async appControllerGetProfile(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.appControllerGetProfile(options);
+        async appControllerGetProfile(body: object, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.appControllerGetProfile(body, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.appControllerGetProfile']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -448,6 +528,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['DefaultApi.classRoomControllerGetOneClassRoom']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {RequestChangePassword} requestChangePassword 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersControllerPostChangePassword(requestChangePassword: RequestChangePassword, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseChangePassword>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersControllerPostChangePassword(requestChangePassword, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DefaultApi.usersControllerPostChangePassword']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -476,11 +568,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        appControllerGetProfile(options?: any): AxiosPromise<void> {
-            return localVarFp.appControllerGetProfile(options).then((request) => request(axios, basePath));
+        appControllerGetProfile(body: object, options?: any): AxiosPromise<object> {
+            return localVarFp.appControllerGetProfile(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -507,6 +600,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         classRoomControllerGetOneClassRoom(id: number, options?: any): AxiosPromise<ResponseOneClassRoom> {
             return localVarFp.classRoomControllerGetOneClassRoom(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {RequestChangePassword} requestChangePassword 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersControllerPostChangePassword(requestChangePassword: RequestChangePassword, options?: any): AxiosPromise<ResponseChangePassword> {
+            return localVarFp.usersControllerPostChangePassword(requestChangePassword, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -540,12 +642,13 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @param {object} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public appControllerGetProfile(options?: RawAxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).appControllerGetProfile(options).then((request) => request(this.axios, this.basePath));
+    public appControllerGetProfile(body: object, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).appControllerGetProfile(body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -578,6 +681,17 @@ export class DefaultApi extends BaseAPI {
      */
     public classRoomControllerGetOneClassRoom(id: number, options?: RawAxiosRequestConfig) {
         return DefaultApiFp(this.configuration).classRoomControllerGetOneClassRoom(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {RequestChangePassword} requestChangePassword 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public usersControllerPostChangePassword(requestChangePassword: RequestChangePassword, options?: RawAxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).usersControllerPostChangePassword(requestChangePassword, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -50,6 +50,7 @@ export class AuthService {
         const result = await this.jwtService.sign(payload)
         console.log('payload', payload)
         return {
+            studentId: user.studentId,
             access_token: result,
         };
     }

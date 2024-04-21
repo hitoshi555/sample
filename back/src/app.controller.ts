@@ -4,7 +4,7 @@ import bcrypt = require('bcryptjs');
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth/auth.service';
 import { $Enums, Student } from '@prisma/client';
-import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
+import { ApiBasicAuth, ApiBody, ApiOkResponse } from '@nestjs/swagger';
 import { ResponseLogin } from './auth/auth.dto';
 
 class LoginRequest {
@@ -13,6 +13,20 @@ class LoginRequest {
   name: string;
   department: $Enums.Department
   password: string;
+}
+
+class ResponseStudent {
+  id: number;
+  studentId: string;
+  name: string;
+  department: $Enums.Department;
+}
+
+class RequestProfile {
+  id: number;
+  studentId: string;
+  name: string;
+  department: $Enums.Department
 }
 
 @Controller()
@@ -40,8 +54,8 @@ export class AppController {
 
   @UseGuards(AuthGuard('local')) // passport-local戦略を付与する
   @Post('login')
-  @ApiOkResponse({ type: ResponseLogin })
   @ApiBody({ type: LoginRequest })
+  @ApiOkResponse({ type: ResponseLogin })
   async login(@Body() req: LoginRequest) {
     console.log("login start")
     console.log("login req:", req)
@@ -58,15 +72,24 @@ export class AppController {
    * @description JWT認証を用いたサンプルAPI
    */
   @UseGuards(AuthGuard('jwt')) // passport-jwt戦略を付与する
+  @ApiBasicAuth()
   @Get('profile')
-  getProfile(@Request() req: { user: Student }) {
+  @ApiBody({ type: RequestProfile })
+  @ApiOkResponse({ type: ResponseStudent })
+  getProfile(@Body() req: { user: RequestProfile }) {
     console.log("profile start")
     // JwtStrategy.validate()で認証して返した値がreq.userに入ってる
     const user = req.user;
 
-    console.log("user:", user)
+    const res = {
+      id: 1,
+      studentId: 'sample',
+      name: 'sample',
+      department: 'COMPUTER_SCIENCE'
+    }
+    console.log("user:", res)
     console.log("profile end")
     // 認証に成功したユーザーの情報を返す
-    return req.user;
+    return res;
   }
 }

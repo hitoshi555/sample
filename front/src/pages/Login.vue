@@ -85,9 +85,11 @@ async function loginApi(loginData: LoginForm) {
     // Dummy API call simulation
     console.log('loginData', loginData)
     const response = await api.login(loginData.studentId, loginData.password)
+    console.log('Login response', response)
     userStore.setLoggedIn(response)
     console.log('Login successful')
-    console.log('response:', response.access_token)
+    console.log('response.password:', response.access_token)
+    console.log('response.studentId:', response.studentId)
     notify({
       title: 'Authorization',
       text: 'You have been logged in!',

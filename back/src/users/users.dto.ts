@@ -27,3 +27,20 @@ export class StudentDTO {
     @ApiProperty()
     password: Password | null;
 }
+
+export class RequestChangePassword {
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    studentId: string
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    password: string;
+}
+
+export class ResponseChangePassword {
+    @ApiProperty()
+    studentId: string
+}

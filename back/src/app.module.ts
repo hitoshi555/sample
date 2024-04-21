@@ -9,6 +9,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
+import { UsersController } from './users/users.controller';
 
 @Module({
   imports: [ClassRoomModule, PrismaModule, AuthModule, UsersModule,
@@ -16,7 +17,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
     }),
   ],
-  controllers: [AppController, ClassRoomController],
+  controllers: [AppController, ClassRoomController, UsersController],
   providers: [AppService, ClassRoomService, PrismaService],
 })
 export class AppModule { }

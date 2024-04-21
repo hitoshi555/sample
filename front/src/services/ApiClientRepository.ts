@@ -2,14 +2,34 @@ import {
   Configuration,
   DefaultApi,
   ResponseAllClassRoom,
+  ResponseChangePassword,
   ResponseLogin,
   ResponseOneClassRoom,
 } from '../../codegen/api-client'
 import { AxiosResponse } from 'axios'
+import { useUserStore } from '../store/user'
+
+function getToken(): string {
+  const userStore = useUserStore()
+  const token = userStore.token
+  console.log('api userStore.token', userStore.token)
+  // 実際のトークン取得ロジックを実装します。例:
+  return token || ''
+}
 
 class ApiClientRepository extends DefaultApi {
   constructor() {
-    super(new Configuration({ basePath: 'http://localhost:3000' }))
+    const token = getToken() // トークンを取得
+    console.log('ApiClientRepository token', token)
+    const config = new Configuration({
+      basePath: 'http://localhost:3000',
+      baseOptions: {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    })
+    super(config)
   }
 }
 
@@ -65,6 +85,28 @@ export class TutorialDataService {
       })
     console.log('TutorialDataService login', result)
 
-    return { access_token: result.data.access_token }
+    return {
+      access_token: result.data.access_token,
+      studentId: result.data.studentId,
+    }
+  }
+
+  async changePassword(
+    studentId: string,
+    password: string,
+  ): Promise<ResponseChangePassword> {
+    console.log('changePassword start')
+    const api = new ApiClientRepository()
+    const result = await api
+      .usersControllerPostChangePassword({ studentId, password })
+      .then((response: AxiosResponse<ResponseChangePassword>) => {
+        console.log('response', response)
+        const result = response.data.studentId
+        console.log(result)
+        return result
+      })
+    console.log('changePassword end')
+
+    return { studentId: result }
   }
 }
