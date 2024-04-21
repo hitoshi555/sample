@@ -3,9 +3,12 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ClassRoomWithTeachers, Teacher } from '../../codegen/api-client'
 import { TutorialDataService } from '../services/ApiClientRepository'
+import { notify } from '@kyvg/vue3-notification'
+import router from '../router'
+import { useUserStore } from '../store/user'
 
+const userStore = useUserStore()
 const route = useRoute()
-
 const result = ref<ClassRoomWithTeachers>()
 const api = new TutorialDataService()
 const id = ref(route.params.id)
@@ -30,48 +33,53 @@ onMounted(async () => {
   }
 })
 
-console.log('ClassRoom script end')
+const buttonClick = async () => {
+  console.log('sample selected')
+  try {
+    const isLoggedIn = userStore.isLoggedIn
+    if (!isLoggedIn) {
+      throw new Error('ログインしてください')
+    }
+
+    const id = result.value ? result.value.id : 0
+    const studentId = userStore.studentId
+    const period = result.value ? result.value.period : {}
+    const timeSlot = result.value ? result.value.timeSlot : {}
+    const weekday = result.value ? result.value.weekday : {}
+
+    const response = await api.selectClassRoom(
+      id,
+      studentId,
+      period,
+      timeSlot,
+      weekday,
+    )
+    if (response.resultText !== 'added') {
+      throw new Error('時間が重複している授業があります')
+    }
+    notify({
+      title: 'select classroom',
+      text: 'You have been selected!',
+    })
+    console.log('sample selected end')
+    router.push('/')
+  } catch (error) {
+    console.error('Login out:', error)
+    notify({
+      type: 'error',
+      title: 'Failed',
+      text: `${error}`,
+    })
+  }
+}
 </script>
 
 <template>
-  <h1>class room</h1>
-  <div>classroom num {{ id }}</div>
-  {{ result }}
-  <router-link to="/">
-    class room
-  </router-link>
-
   <div
     class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
   >
     <div class="absolute inset-0 -z-10 overflow-hidden">
-      <svg
-        class="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
-        aria-hidden="true"
-      >
-        <defs>
-          <pattern
-            id="e813992c-7d03-4cc4-a2bd-151760b470a0"
-            width="200"
-            height="200"
-            x="50%"
-            y="-1"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M100 200V.5M.5 .5H200"
-              fill="none"
-            />
-          </pattern>
-        </defs>
-
-        <rect
-          width="100%"
-          height="100%"
-          stroke-width="0"
-          fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)"
-        />
-      </svg>
+      <h1>class room</h1>
     </div>
 
     <div
@@ -82,15 +90,21 @@ console.log('ClassRoom script end')
       >
         <div class="lg:pr-4">
           <div class="lg">
-            <h1
+            <h2
               class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
             >
-              A better workflow
-            </h1>
+              {{ result?.name }}
+            </h2>
             <p class="mt-6 text-xl leading-8 text-gray-700">
-              Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem.
-              At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at
-              vitae feugiat egestas.
+              {{ result?.description }}
+            </p>
+            <p class="mt-6 text-xl leading-8 text-gray-700">
+              単位数: {{ result?.units }}
+            </p>
+            <p class="mt-6 text-xl leading-8 text-gray-700">
+              開講時期: {{ result?.period }}-{{ result?.timeSlot }}-{{
+                result?.weekday
+              }}
             </p>
           </div>
         </div>
@@ -132,6 +146,15 @@ console.log('ClassRoom script end')
           </li>
         </ul>
       </div>
+    </div>
+
+    <div class="flex items-center justify-center">
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        @click="buttonClick"
+      >
+        受講する
+      </button>
     </div>
   </div>
 </template>

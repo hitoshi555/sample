@@ -5,6 +5,7 @@ import {
   ResponseChangePassword,
   ResponseLogin,
   ResponseOneClassRoom,
+  ResponseSelectClassroom,
 } from '../../codegen/api-client'
 import { AxiosResponse } from 'axios'
 import { useUserStore } from '../store/user'
@@ -108,5 +109,33 @@ export class TutorialDataService {
     console.log('changePassword end')
 
     return { studentId: result }
+  }
+
+  async selectClassRoom(
+    id: number,
+    studentId: string,
+    period: object,
+    timeSlot: object,
+    weekday: object,
+  ): Promise<ResponseSelectClassroom> {
+    console.log('selectClassRoom start')
+    const api = new ApiClientRepository()
+    const result = await api
+      .classRoomControllerSelectClassRoom({
+        id,
+        studentId,
+        period,
+        timeSlot,
+        weekday,
+      })
+      .then((response: AxiosResponse<ResponseSelectClassroom>) => {
+        console.log('response', response)
+        const result = response.data.resultText
+        console.log(result)
+        return result
+      })
+    console.log('selectClassRoom end')
+
+    return { resultText: result }
   }
 }
