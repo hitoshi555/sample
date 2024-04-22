@@ -12,21 +12,16 @@ const result = ref<ClassRoomDTO[]>()
 const api = new TutorialDataService()
 const userStore = useUserStore()
 
-console.log('selected class rooms script start')
-
 onMounted(async () => {
   try {
-    const studentId =  userStore.studentId
+    const studentId = userStore.studentId
     const isLoggedIn = userStore.isLoggedIn
     if (!isLoggedIn) {
-        router.push('/')
+      router.push('/')
       throw new Error('ログインしてください')
     }
-    console.log('studentId:',studentId)
     const response = await api.selectedClassRooms(studentId)
-    console.log('response', response)
     result.value = response.classrooms
-    console.log('result', result.value)
   } catch (error) {
     console.error('Error fetching data:', error)
     console.error('Login out:', error)
@@ -37,8 +32,6 @@ onMounted(async () => {
     })
   }
 })
-
-console.log('selected class rooms script end')
 </script>
 
 <template>

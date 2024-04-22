@@ -9,17 +9,13 @@ const randomIntFromInterval = (min: number, max: number): number => { // min and
 
 
 async function main() {
-    console.log('main start');
     const students = [
         { studentId: 'S001', name: 'Alice', password: 'password1' },
         { studentId: 'S002', name: 'Bob', password: 'password2' },
     ];
-    console.log('check point 1');
 
     for (const student of students) {
-        console.log('check point 2');
         const hashedPassword = await bcrypt.hash(student.password, 10);
-        console.log('hashedPassword', hashedPassword);
         await prisma.student.create({
             data: {
                 studentId: student.studentId,
@@ -37,7 +33,6 @@ async function main() {
         });
     }
 
-    console.log('Data seeded successfully');
 }
 
 main()
