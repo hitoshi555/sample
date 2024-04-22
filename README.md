@@ -2,13 +2,13 @@
 frontend側 Vue3, tailwind css, pinia, vue-router, vueuse, nginxを使用してます。   
 backend側 NestJS, Prisma, Swagger を利用しています。   
 その他 Docker   
-   
+      　
 ## 環境構築について
 ```
 ./$ git clone https://github.com/hitoshi555/sample.git
 docker-compose up -d　frontend, backend, dbを立ち上げる
 ```
-   
+      
 ## frontend側の開発について
 ```
 ./$ cd front
@@ -26,7 +26,7 @@ docker ps でbackend側のapiが立ち上がっているのを確認
   codegen": "openapi-generator-cli generate -i http://localhost:3000/api-json -g typescript-axios -o ./codegen/api-client"
   ~~~
 }
-```
+```   
 ## backend側の開発について
 ```
 ./$ cd back
