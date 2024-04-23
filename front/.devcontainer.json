@@ -5,5 +5,13 @@
     ],
     "service": "frontend",
     "shutdownAction": "none",
-    "workspaceFolder": "/app"
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bradlc.vscode-tailwindcss",
+                "Vue.volar"
+            ]
+        }
+    }
 }
