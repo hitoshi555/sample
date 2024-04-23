@@ -24,19 +24,17 @@ export class ClassRoom {
   units: number;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(Period)
   period: Period;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(TimeSlot)
   timeSlot: TimeSlot;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(WeekDay)
   weekday: WeekDay;
+
 }
 
 export class Teacher {
@@ -51,7 +49,6 @@ export class Teacher {
   name: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(Position)
   position: Position;
 }
@@ -78,17 +75,14 @@ export class ClassRoomWithTeachers {
   units: number;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(Period)
   period: Period;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(TimeSlot)
   timeSlot: TimeSlot;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(WeekDay)
   weekday: WeekDay;
 
@@ -118,17 +112,14 @@ export class ClassRoomDTO {
   units: number;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(Period)
   period: Period;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(TimeSlot)
   timeSlot: TimeSlot;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(WeekDay)
   weekday: WeekDay;
 }
@@ -155,17 +146,14 @@ export class RequestSelectClassroom {
   studentId: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(Period)
   period: Period;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(TimeSlot)
   timeSlot: TimeSlot;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(WeekDay)
   weekday: WeekDay;
 }

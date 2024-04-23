@@ -40,7 +40,6 @@ __decorate([
 ], StudentDTO.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.Department),
     __metadata("design:type", String)
 ], StudentDTO.prototype, "department", void 0);
