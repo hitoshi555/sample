@@ -1,0 +1,39 @@
+{
+  "name": "front",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint --fix src/*.{ts,vue} && eslint --fix src/**/*.{ts,vue}",
+    "format": "prettier -w src/*.{ts,vue} && prettier -w src/**/*.{ts,vue}",
+    "fix": "npm run format && npm run lint",
+    "codegen": "openapi-generator-cli generate -i http://localhost:3000/api-json -g typescript-axios -o ./codegen/api-client"
+  },
+  "dependencies": {
+    "@kyvg/vue3-notification": "^3.2.1",
+    "@vueuse/core": "^10.9.0",
+    "autoprefixer": "^10.4.19",
+    "pinia": "^2.1.7",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.2"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.2",
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "@typescript-eslint/parser": "^7.7.0",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.25.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6"
+  }
+}
