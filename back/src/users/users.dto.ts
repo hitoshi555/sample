@@ -20,7 +20,6 @@ export class StudentDTO {
   name: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsEnum(Department)
   department: Department;
 

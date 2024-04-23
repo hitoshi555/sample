@@ -46,19 +46,16 @@ __decorate([
 ], ClassRoom.prototype, "units", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.Period),
     __metadata("design:type", String)
 ], ClassRoom.prototype, "period", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.TimeSlot),
     __metadata("design:type", String)
 ], ClassRoom.prototype, "timeSlot", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.WeekDay),
     __metadata("design:type", String)
 ], ClassRoom.prototype, "weekday", void 0);
@@ -82,7 +79,6 @@ __decorate([
 ], Teacher.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.Position),
     __metadata("design:type", String)
 ], Teacher.prototype, "position", void 0);
@@ -118,19 +114,16 @@ __decorate([
 ], ClassRoomWithTeachers.prototype, "units", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.Period),
     __metadata("design:type", String)
 ], ClassRoomWithTeachers.prototype, "period", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.TimeSlot),
     __metadata("design:type", String)
 ], ClassRoomWithTeachers.prototype, "timeSlot", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.WeekDay),
     __metadata("design:type", String)
 ], ClassRoomWithTeachers.prototype, "weekday", void 0);
@@ -170,19 +163,16 @@ __decorate([
 ], ClassRoomDTO.prototype, "units", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.Period),
     __metadata("design:type", String)
 ], ClassRoomDTO.prototype, "period", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.TimeSlot),
     __metadata("design:type", String)
 ], ClassRoomDTO.prototype, "timeSlot", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.WeekDay),
     __metadata("design:type", String)
 ], ClassRoomDTO.prototype, "weekday", void 0);
@@ -226,19 +216,16 @@ __decorate([
 ], RequestSelectClassroom.prototype, "studentId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.Period),
     __metadata("design:type", String)
 ], RequestSelectClassroom.prototype, "period", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.TimeSlot),
     __metadata("design:type", String)
 ], RequestSelectClassroom.prototype, "timeSlot", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEnum)(client_1.WeekDay),
     __metadata("design:type", String)
 ], RequestSelectClassroom.prototype, "weekday", void 0);
