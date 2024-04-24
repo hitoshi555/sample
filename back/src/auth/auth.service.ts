@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
 import { Student } from '@prisma/client';
 import { UsersService } from 'src/users/users.service';
-import { ResponseLogin } from './auth.dto';
+import { RequestLogin, ResponseLogin } from './auth.dto';
 
 interface JWTPayload {
   studentId: Student['studentId'];
@@ -18,7 +18,7 @@ export class AuthService {
   constructor(
     private jwtService: JwtService,
     private usersService: UsersService,
-  ) {}
+  ) { }
 
   // ユーザーを認証する
   async validateUser(
@@ -39,9 +39,10 @@ export class AuthService {
   }
 
   // jwt tokenを返す
-  async login(user: Student): Promise<ResponseLogin> {
+  async login(user: RequestLogin): Promise<ResponseLogin> {
+    const loginUser = await this.usersService.findOne(user.studentId);
     // jwtにつけるPayload情報
-    const payload: JWTPayload = { studentId: user.studentId, name: user.name };
+    const payload: JWTPayload = { studentId: loginUser.studentId, name: loginUser.name };
 
     const result = await this.jwtService.sign(payload);
     return {
