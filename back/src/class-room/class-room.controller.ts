@@ -19,7 +19,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Controller('class-room')
 export class ClassRoomController {
-  constructor(private classRoomService: ClassRoomService) {}
+  constructor(private classRoomService: ClassRoomService) { }
 
   @Get()
   @ApiOkResponse({ type: ResponseAllClassRoom })
@@ -47,18 +47,13 @@ export class ClassRoomController {
   @Post('select-class-room')
   async selectClassRoom(@Body() body: RequestSelectClassroom) {
     console.log('select-class-room');
-    const studentId = body.studentId;
-    const classroomId = body.id;
-    const period = body.period;
-    const timeSlot = body.timeSlot;
-    const weekday = body.weekday;
 
     const response = await this.classRoomService.selectClassRoom(
-      studentId,
-      classroomId,
-      period,
-      timeSlot,
-      weekday,
+      body.studentId,
+      body.id,
+      body.period,
+      body.timeSlot,
+      body.weekday,
     );
 
     console.log('select-class-room end');
