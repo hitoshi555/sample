@@ -63,7 +63,7 @@ export class TutorialDataService {
   async login(studentId: string, password: string): Promise<ResponseLogin> {
     const api = new ApiClientRepository()
     const result = await api
-      .appControllerLogin({ studentId, password })
+      .authControllerLogin({ studentId, password })
       .then((response: AxiosResponse<ResponseLogin>) => {
         const result = response
         return result
