@@ -13,18 +13,25 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 export class UsersService {
   constructor(
     private readonly prisma: PrismaService, // PrismaServiceをDIして使用
-  ) {}
+  ) { }
 
   // ユーザーを一人を返す
   async findOne(studentId: string): Promise<StudentDTO | null> {
     // Prismaを使用してDBにアクセスして、ユーザーを取得する
-    const result = this.prisma.student.findUnique({
+    const student = this.prisma.student.findUnique({
       where: { studentId: studentId },
       include: {
         password: true,
       },
     });
-    return result;
+
+
+    if (!student) {
+      throw new Error('Student not found');
+    }
+
+
+    return student;
   }
 
   async changePassword(
@@ -50,6 +57,11 @@ export class UsersService {
     });
 
     const classRooms = studentWithClassRooms.classRoom;
+
+    if (!classRooms) {
+      throw new Error('Selected Class room not found');
+    }
+
 
     return { classrooms: classRooms };
   }
