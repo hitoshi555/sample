@@ -9,7 +9,7 @@ import {
 
 @Injectable()
 export class ClassRoomService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async getAllClassRoom(): Promise<ResponseAllClassRoom> {
     const allClassRoom: ClassRoomDTO[] = await this.prisma.classRoom.findMany();
@@ -18,7 +18,7 @@ export class ClassRoomService {
   }
 
   async getOneClassRoom(id: number): Promise<ClassRoomWithTeachers> {
-    const result: ClassRoomWithTeachers =
+    const classRoom: ClassRoomWithTeachers =
       await this.prisma.classRoom.findUnique({
         where: { id },
         include: {
@@ -26,9 +26,13 @@ export class ClassRoomService {
         },
       });
 
-    console.log(result.name);
+    console.log(classRoom.name);
 
-    return result;
+    if (!classRoom) {
+      throw new Error('classroom not found');
+    }
+
+    return classRoom;
   }
 
   async selectClassRoom(
