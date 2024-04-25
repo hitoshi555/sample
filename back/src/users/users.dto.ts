@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Department, Password } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { ClassRoomDTO } from 'src/class-room/class-room.dto';
+import { ClassRoom } from 'src/class-room/class-room.dto';
 
 export class StudentDTO {
   @ApiProperty()
@@ -50,7 +50,7 @@ export class RequestSelectedRooms {
 }
 
 export class ResponseSelectedRooms {
-  classrooms: ClassRoomDTO[];
+  classrooms: ClassRoom[];
 }
 
 export class RequestEditSelectClassroom {

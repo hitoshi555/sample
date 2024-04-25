@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   ResponseAllClassRoom,
-  ClassRoomDTO,
   ClassRoomWithTeachers,
   ResponseSelectClassroom,
+  ClassRoom,
 } from './class-room.dto';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class ClassRoomService {
   constructor(private prisma: PrismaService) { }
 
   async getAllClassRoom(): Promise<ResponseAllClassRoom> {
-    const allClassRoom: ClassRoomDTO[] = await this.prisma.classRoom.findMany();
+    const allClassRoom: ClassRoom[] = await this.prisma.classRoom.findMany();
 
     return { classRooms: allClassRoom };
   }
