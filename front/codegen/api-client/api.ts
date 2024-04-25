@@ -75,55 +75,6 @@ export interface ClassRoom {
 /**
  * 
  * @export
- * @interface ClassRoomDTO
- */
-export interface ClassRoomDTO {
-    /**
-     * 
-     * @type {number}
-     * @memberof ClassRoomDTO
-     */
-    'id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ClassRoomDTO
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ClassRoomDTO
-     */
-    'description': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ClassRoomDTO
-     */
-    'units': number;
-    /**
-     * 
-     * @type {object}
-     * @memberof ClassRoomDTO
-     */
-    'period': object;
-    /**
-     * 
-     * @type {object}
-     * @memberof ClassRoomDTO
-     */
-    'timeSlot': object;
-    /**
-     * 
-     * @type {object}
-     * @memberof ClassRoomDTO
-     */
-    'weekday': object;
-}
-/**
- * 
- * @export
  * @interface ClassRoomWithTeachers
  */
 export interface ClassRoomWithTeachers {
@@ -393,10 +344,10 @@ export interface ResponseSelectClassroom {
 export interface ResponseSelectedRooms {
     /**
      * 
-     * @type {Array<ClassRoomDTO>}
+     * @type {Array<ClassRoom>}
      * @memberof ResponseSelectedRooms
      */
-    'classrooms': Array<ClassRoomDTO>;
+    'classrooms': Array<ClassRoom>;
 }
 /**
  * 

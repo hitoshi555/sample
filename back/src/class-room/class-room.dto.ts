@@ -90,40 +90,6 @@ export class ClassRoomWithTeachers {
   teacher: Teacher[] | null;
 }
 
-export class ClassRoomDTO {
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsNumber()
-  id: number;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  name: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  description: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsNumber()
-  units: number;
-
-  @ApiProperty()
-  @IsEnum(Period)
-  period: Period;
-
-  @ApiProperty()
-  @IsEnum(TimeSlot)
-  timeSlot: TimeSlot;
-
-  @ApiProperty()
-  @IsEnum(WeekDay)
-  weekday: WeekDay;
-}
-
 export class ResponseAllClassRoom {
   @ApiProperty()
   classRooms: ClassRoom[];

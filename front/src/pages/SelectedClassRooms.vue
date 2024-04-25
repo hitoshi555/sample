@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { TutorialDataService } from '../services/ApiClientRepository'
-import { ClassRoomDTO } from '../../codegen/api-client'
+import { ClassRoom } from '../../codegen/api-client'
 import PageTitle from '../components/PageTitle.vue'
 import { useUserStore } from '../store/user'
 import { notify } from '@kyvg/vue3-notification'
 import router from '../router'
 import SelectedClassRoomCard from '../components/SelectedClassRoomCard.vue'
 
-const result = ref<ClassRoomDTO[]>()
+const result = ref<ClassRoom[]>()
 const api = new TutorialDataService()
 const userStore = useUserStore()
 
