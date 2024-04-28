@@ -22,6 +22,7 @@ onMounted(async () => {
     teachers.value = response.classRoom.teacher
   } catch (error) {
     console.error('Error fetching data:', error)
+    router.push('/error')
   }
 })
 
